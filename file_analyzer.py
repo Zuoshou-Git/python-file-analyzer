@@ -111,7 +111,8 @@ def scan_directory(scan_dir: Path) -> tuple[list[FileInfo], int]:
     for root, directories, filenames in os.walk(
         scan_dir, topdown=True, onerror=on_walk_error, followlinks=False
     ):
-        directories.sort()
+        # 原地修改 os.walk 的目录列表，阻止进入任意层级的 .git 目录。
+        directories[:] = sorted(directory for directory in directories if directory != ".git")
         filenames.sort()
         root_path = Path(root)
 

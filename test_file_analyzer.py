@@ -39,6 +39,19 @@ class FileAnalyzerTests(unittest.TestCase):
             self.assertEqual(len(rows), 3)
             self.assertEqual(rows[0]["文件扩展名"], ".txt")
 
+    def test_scan_ignores_git_directory_and_its_contents(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_directory:
+            root = Path(temp_directory)
+            git_directory = root / ".git"
+            git_directory.mkdir()
+            (git_directory / "config").write_text("private metadata", encoding="utf-8")
+            (root / "visible.txt").write_text("visible", encoding="utf-8")
+
+            files, skipped = file_analyzer.scan_directory(root)
+
+            self.assertEqual(skipped, 0)
+            self.assertEqual([file.name for file in files], ["visible.txt"])
+
     def test_validation_rejects_missing_scan_directory(self) -> None:
         with tempfile.TemporaryDirectory() as temp_directory:
             missing = Path(temp_directory) / "does-not-exist"
