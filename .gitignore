@@ -1,2 +1,23 @@
-file_list.csv 
+file_list.csv
 git_ignore.csv
+
+# Python 缓存与虚拟环境
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+venv/
+
+# PyInstaller 构建产物（配置文件 FileAnalyzer.spec 保留跟踪）
+build/
+dist/
+
+# 编辑器与系统临时文件
+.idea/
+.vscode/
+*.tmp
+*.log
+Thumbs.db
+.DS_Store

@@ -1,0 +1,2 @@
+# 本项目只使用 QtCore/QtGui/QtWidgets；Essentials 保持 PySide6 API，避免安装未使用的多媒体/WebEngine Addons。
+PySide6-Essentials>=6.8,<7
